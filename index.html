@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ColumnChart</title>
+    <link rel="stylesheet" href="src/css/variables.css" />
+    <link rel="stylesheet" href="src/css/style.css" />
+    <script src="src/js/data/common.js"></script>
+    <script src="src/js/components/ColumnChart.js"></script>
+    <script src="src/js/components/Notification.js"></script>
+    <script src="src/js/components/NotificationManager.js"></script>
+    <style>
+      .dashboard__charts {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 24px;
+        --chart-height: 50;
+      }
+
+      .dashboard__chart_orders {
+        --chart-column-color: var(--yellow);
+      }
+
+      .dashboard__chart_sales {
+        --chart-column-color: var(--green);
+      }
+
+      .dashboard__chart_customers {
+        --chart-column-color: var(--purple);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="dashboard__charts">
+      <div id="orders" class="column-chart dashboard__chart_orders"></div>
+      <div id="sales" class="column-chart dashboard__chart_sales"></div>
+      <div id="customers" class="column-chart dashboard__chart_customers"></div>
+    </div>
+
+    <script>
+      orders.innerHTML = new ColumnChart(ordersData).render();
+      sales.innerHTML = new ColumnChart(salesData).render();
+      customers.innerHTML = new ColumnChart(customersData).render();
+    </script>
+  </body>
+</html>
