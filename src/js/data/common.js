@@ -13,24 +13,34 @@ const customersData = {
     amount: "321",
     values: [27,30,25,8,36,36,36,8,36,44,44,5,33,33,36,19]
 };
-const notifications = [
+const notificationsData = [
     {
+        serial: 0,
+        delay: 3000,
         status: "error",
         message: "apple"
     },
     {
+        serial: 0,
+        delay: 3000,
         status: "success",
         message: "banana"
     },
     {
+        serial: 0,
+        delay: 3000,
         status: "success",
         message: "orange"
     },
     {
+        serial: 0,
+        delay: 3000,
         status: "success",
         message: "tomato"
     },
     {
+        serial: 0,
+        delay: 3000,
         status: "error",
         message: "grape"
     }

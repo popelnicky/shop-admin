@@ -95,6 +95,14 @@
     right: 0;
   }
 
+.notification__container {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0 10px 40px 0;
+}
+
 .notification {
     width: 200px;
     margin: 10px 5px;
