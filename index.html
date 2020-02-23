@@ -39,13 +39,23 @@
     </div>
 
     <div style="position: fixed; bottom: 0; right: 0; margin: 0 10px 10px 0;">
-        <button id="btn1">Show custom notification</button>
+        <button id="btn">Show custom notification</button>
     </div>
 
     <script>
       orders.innerHTML = new ColumnChart(ordersData).render();
       sales.innerHTML = new ColumnChart(salesData).render();
       customers.innerHTML = new ColumnChart(customersData).render();
+
+      btn.addEventListener("click", () => {
+          const i = getIndex(notifications.length);
+
+          document.body.append(new Notification(notifications[i]));
+      });
+
+      const getIndex = (end) => {
+          return parseInt(Math.random() * end, 10);
+      };
     </script>
   </body>
 </html>

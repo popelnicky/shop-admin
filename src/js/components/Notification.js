@@ -1,5 +1,8 @@
 class Notification {
-    constructor(data) {
+    constructor(data = {
+        status: "error",
+        message: "Something went wrong"
+    }) {
         this.$element = document.createElement("div");
         this.$element.innerHTML = `<div class="notification ${data.status}" style="--value:3s">
                                         <div class="timer"></div>
@@ -13,7 +16,7 @@ class Notification {
             if(this.$element) {
                 this.remove();
             }
-        }, 3e3);
+        }, 2900);
 
         return this.$element;
     }
