@@ -38,6 +38,10 @@
       <div id="customers" class="column-chart dashboard__chart_customers"></div>
     </div>
 
+    <div style="position: fixed; bottom: 0; right: 0; margin: 0 10px 10px 0;">
+        <button id="btn1">Show custom notification</button>
+    </div>
+
     <script>
       orders.innerHTML = new ColumnChart(ordersData).render();
       sales.innerHTML = new ColumnChart(salesData).render();
