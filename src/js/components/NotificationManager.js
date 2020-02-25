@@ -2,18 +2,14 @@ class NotificationManager {
     constructor(container = document.body) {
         this.container = container;
         this.stack = [];
-        this.total = 0;
     }
 
     show(data) {
-        data.serial = ++this.total;
         const notification = new Notification(data);
 
         notification.addListener(this.removeFromStack, this);
-        
         this.addToStack(notification);
-        
-        this.container.append(notification.$elem);
+        this.container.append(notification.$element);
     }
 
     addToStack(notification) {

@@ -6,8 +6,8 @@ class Notification {
         message: "Something went wrong"
     }) {
         this.listeners = [];
-        this.$element = document.createElement("div");
-        this.$element.innerHTML = `<div class="notification ${data.status}" style="--value:${[data.delay / 1000, "s"].join("")}">
+        this.component = document.createElement("div");
+        this.component.innerHTML = `<div class="notification ${data.status}" style="--value:${[data.delay / 1000, "s"].join("")}">
                                         <div class="timer"></div>
                                         <div class="inner-wrapper">
                                         <div class="notification-header">${data.status}</div>
@@ -16,14 +16,14 @@ class Notification {
                                     </div>`;
         
         this.timeout = setTimeout(() => {
-            if(this.$element) {
+            if(this.component) {
                 this.dispatch();
             }
         }, data.delay - 10);
     }
 
-    get $elem() {
-        return this.$element;
+    get $element() {
+        return this.component;
     }
 
     addListener(handler, context) {
@@ -31,21 +31,20 @@ class Notification {
     }
 
     dispatch() {
-        for(let {context, handler} of this.listeners) {
+        for(let {handler, context} of this.listeners) {
             handler.call(context, this);
         }
     }
 
     remove() {
         clearTimeout(this.timeout);
-        
-        this.$element.style.display = "none";
         this.destroy();
     }
 
     destroy() {
-        this.$element.remove();
-        this.$element = null;
+        this.component.style.display = "none";
+        this.component.remove();
+        this.component = null;
         this.listeners = null;
     }
 }
