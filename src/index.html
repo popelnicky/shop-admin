@@ -5,10 +5,10 @@
     <title>Admin Site</title>
     <link rel="stylesheet" href="src/css/variables.css" />
     <link rel="stylesheet" href="src/css/style.css" />
-    <script src="src/js/data/common.js"></script>
+    <!-- <script src="src/js/data/common.js"></script>
     <script src="src/js/components/ColumnChart.js"></script>
     <script src="src/js/components/Notification.js"></script>
-    <script src="src/js/components/NotificationManager.js"></script>
+    <script src="src/js/components/NotificationManager.js"></script> -->
     <style>
       .dashboard__charts {
         display: grid;
@@ -45,26 +45,26 @@
     <div id="notifications" class="notification__container"></div>
 
     <script>
-      orders.innerHTML = new ColumnChart(ordersData).render();
-      sales.innerHTML = new ColumnChart(salesData).render();
-      customers.innerHTML = new ColumnChart(customersData).render();
+      // orders.innerHTML = new ColumnChart(ordersData).render();
+      // sales.innerHTML = new ColumnChart(salesData).render();
+      // customers.innerHTML = new ColumnChart(customersData).render();
 
-      const notificationManager = new NotificationManager(notifications);
-      let total = 0;
+      // const notificationManager = new NotificationManager(notifications);
+      // let total = 0;
 
-      btn.addEventListener("click", () => {
-          const index = getRandomNumber(0, notificationsData.length);
-          const item = notificationsData[index];
+      // btn.addEventListener("click", () => {
+      //     const index = getRandomNumber(0, notificationsData.length);
+      //     const item = notificationsData[index];
 
-          item.serial = ++total;
-          item.delay = getRandomNumber(3000, 10000);
+      //     item.serial = ++total;
+      //     item.delay = getRandomNumber(3000, 10000);
 
-          notificationManager.show(item);
-      });
+      //     notificationManager.show(item);
+      // });
 
-      const getRandomNumber = (from, to) => {
-          return parseInt(from + Math.random() * to, 10);
-      };
+      // const getRandomNumber = (from, to) => {
+      //     return parseInt(from + Math.random() * to, 10);
+      // };
     </script>
   </body>
 </html>

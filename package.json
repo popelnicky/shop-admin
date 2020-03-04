@@ -1,0 +1,31 @@
+{
+  "name": "shop-admin",
+  "version": "1.0.0",
+  "description": "Learn new standard of JavaScript (es-2020)",
+  "main": "main.js",
+  "scripts": {
+    "build": "webpack --config ./build_configurations/webpack.config.js --mode development --devtool none",
+    "dev": "webpack-dev-server --config ./build_configurations/webpack.config.js --mode development --devtool source-map",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/popelnicky/shop-admin.git"
+  },
+  "author": "popelnicky@live.ru",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/popelnicky/shop-admin/issues"
+  },
+  "homepage": "https://github.com/popelnicky/shop-admin#readme",
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^5.1.1",
+    "eslint": "^6.8.0",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  }
+}
