@@ -130,6 +130,15 @@
   .notification.error .timer {
     background: #c28585;
   }
+
+  /* Warning */
+  .notification.warning {
+    background: #fff9c2;
+  }
+
+  .notification.warning .timer {
+    background: #c1c377;
+  }
   
   .inner-wrapper {
     padding: 5px;

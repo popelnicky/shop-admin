@@ -1,18 +1,22 @@
-import NotificationMessage from "./NotificationMessage";
+import NotificationMessage from "../NotificationMessage";
 
 export default class NotificationManager {
   constructor(container = document.body, stackLength = 3) {
-    this.container = container;
+    this.$root = container;
     this.stack = [];
     this.stackLength = stackLength;
   }
 
   show(data) {
+    const { type = "warning" } = data;
+
+    
+
     const notification = new NotificationMessage(data);
 
     notification.addListener(this.removeFromStack, this);
     this.addToStack(notification);
-    this.container.append(notification.$element);
+    this.$root.append(notification.$element);
   }
 
   addToStack(notification) {
@@ -23,6 +27,12 @@ export default class NotificationManager {
     }
         
     this.stack.push(notification);
+  }
+
+  getNotification(type) {
+    switch(type) {
+      case "success": {} break;
+    }
   }
 
   removeFromStack(notification) {

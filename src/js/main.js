@@ -1,5 +1,5 @@
 import ColumnChart from "./components/ColumnChart";
-import NotificationManager from "./components/NotificationManager";
+import NotificationManager from "./components/notifications/NotificationManager";
 import Utils from "./services/Utils";
 import { ordersData, salesData, customersData, notificationsData } from "./data/common";
 
