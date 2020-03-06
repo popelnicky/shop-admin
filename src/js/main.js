@@ -1,20 +1,27 @@
-// orders.innerHTML = new ColumnChart(ordersData).render();
-      // sales.innerHTML = new ColumnChart(salesData).render();
-      // customers.innerHTML = new ColumnChart(customersData).render();
+import ColumnChart from "./components/ColumnChart";
+import NotificationManager from "./components/NotificationManager";
+import Utils from "./services/Utils";
+import { ordersData, salesData, customersData, notificationsData } from "./data/common";
 
-      // const notificationManager = new NotificationManager(notifications);
-      // let total = 0;
 
-      // btn.addEventListener("click", () => {
-      //     const index = getRandomNumber(0, notificationsData.length);
-      //     const item = notificationsData[index];
+// ColumnChart component
+document.addEventListener("DOMContentLoaded", () => {
+  const ordersChart = document.querySelector(".dashboard__chart_orders");
+  const salesChart = document.querySelector(".dashboard__chart_sales");
+  const customersChart = document.querySelector(".dashboard__chart_customers");
 
-      //     item.serial = ++total;
-      //     item.delay = getRandomNumber(3000, 10000);
+  ordersChart.append(new ColumnChart(ordersData));
+  salesChart.append(new ColumnChart(salesData));
+  customersChart.append(new ColumnChart(customersData));
+});
 
-      //     notificationManager.show(item);
-      // });
-
-      // const getRandomNumber = (from, to) => {
-      //     return parseInt(from + Math.random() * to, 10);
-      // };
+// NotificationManager and NotificationMessage components
+document.addEventListener("DOMContentLoaded", () => {
+  const notificationButton = document.getElementById("btn");
+  const notificationContainer = document.querySelector(".notification__container");
+  const notificationManager = new NotificationManager(notificationContainer, 5);
+    
+  notificationButton.addEventListener("click", () => {
+    notificationManager.show(notificationsData[Utils.getRandomNumber(0, notificationsData.length)]);
+  });
+});

@@ -4,7 +4,7 @@
   "description": "Learn new standard of JavaScript (es-2020)",
   "main": "main.js",
   "scripts": {
-    "build": "webpack --config ./build_configurations/webpack.config.js --mode development --devtool none",
+    "build": "webpack --config ./build_configurations/webpack.config.js --mode production --devtool none",
     "dev": "webpack-dev-server --config ./build_configurations/webpack.config.js --mode development --devtool source-map",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

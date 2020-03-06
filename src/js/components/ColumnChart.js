@@ -3,6 +3,12 @@ export default class ColumnChart {
     this.header = data.header;
     this.amount = data.amount;
     this.data = data.values;
+
+    const $component = document.createElement("div");
+
+    $component.innerHTML = this.render();
+
+    return $component;
   }
 
   getColumns() {
