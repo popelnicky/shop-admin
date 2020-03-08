@@ -16,37 +16,24 @@ export const customersData = {
   values: [27, 30, 25, 8, 36, 36, 36, 8, 36, 44, 44, 5, 33, 33, 36, 19]
 };
 
-export const notificationsData = [
-  {
-    serial: 0,
-    duration: 3000,
-    type: "error",
-    message: "apple"
-  },
-  {
-    serial: 0,
-    duration: 3000,
-    type: "success",
-    message: "banana"
-  },
-  {
-    serial: 0,
-    duration: 3000,
-    type: "success",
-    message: "orange"
-  },
-  {
-    serial: 0,
-    duration: 3000,
-    type: "success",
-    message: "tomato"
-  },
-  {
-    serial: 0,
-    duration: 3000,
-    type: "error",
-    message: "grape"
-  }
+export const successes = [
+  "Your data was saved",
+  "Your action was cached",
+  "Send request to the server",
+  "Moved to the next stage",
+  "Result was got from the server"
 ];
-
-// export default { ordersData, salesData, customersData, notificationsData };
+export const warnings = [
+  "Can be a problem on the next stage",
+  "Data format was corrapted",
+  "This method is depricated",
+  "Data can be empty",
+  "This action temporary unavaliable"
+];
+export const errors = [
+  "Something went wrong",
+  "Resource was not found",
+  "Error in client code",
+  "There is no possibility to do it",
+  "Conflict in previous action"
+];

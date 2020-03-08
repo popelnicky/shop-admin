@@ -7,7 +7,7 @@ module.exports = (env, args) => {
   return {
     entry: "./src/js/main.js",
     output: {
-      filename: "[name].min.js",
+      filename: "app.min.js",
       // eslint-disable-next-line no-undef
       path: path.resolve(__dirname, "../dist")
     },
@@ -21,6 +21,14 @@ module.exports = (env, args) => {
     },
     plugins: [
       new CopyWebpackPlugin([
+        {
+          from: "src/assets",
+          to: "assets"
+        },
+        {
+          from: "src/css",
+          to: "css"
+        },
         {
           from: "src/index.html",
           to: "index.html"

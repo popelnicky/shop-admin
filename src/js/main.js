@@ -1,7 +1,7 @@
 import ColumnChart from "./components/ColumnChart";
 import NotificationManager from "./components/notifications/NotificationManager";
 import Utils from "./services/Utils";
-import { ordersData, salesData, customersData, notificationsData } from "./data/common";
+import { ordersData, salesData, customersData } from "./data/common";
 
 
 // ColumnChart component
@@ -22,6 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const notificationManager = new NotificationManager(notificationContainer, 5);
     
   notificationButton.addEventListener("click", () => {
-    notificationManager.show(notificationsData[Utils.getRandomNumber(0, notificationsData.length)]);
+    notificationManager.show(Utils.getMessageData());
   });
 });

@@ -1,44 +1,107 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Admin Site</title>
-    <link rel="stylesheet" href="src/css/variables.css" />
-    <link rel="stylesheet" href="src/css/style.css" />
-    <script src="main.min.js"></script>
-    <style>
-      .dashboard__charts {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 24px;
-        --chart-height: 50;
-      }
+<!DOCTYPE HTML>
+<meta charset="utf-8">
+<head>
+  <title>Админ сайт для онлайн магазина</title>
+  <link rel="apple-touch-icon-precomposed" href="assets/favicon/apple-touch-icon-precomposed.png">
+  <link rel="icon" href="assets/favicon/favicon.png">
+  <style>
+    :root {
+      --blue: #109cf1;
+      --dark-blue: #334d6e;
+      --light-blue: #cfebfc;
+      --middle-blue: #9fd7f9;
+      --yellow: #ffb946;
+      --red: #f7685b;
+      --green: #2ed47a;
+      --purple: #885af8;
+      --black: #192a3e;
+      --table-black: #323c47;
+      --table-grey: #707683;
+      --grey: #90a0b7;
+      --grey-light: #c2cfe0;
+      --grey-extra-light: #eff1f4;
+      --grey-skeleton: #f5f6f8;
+      --white: #ffffff;
+    }
+    body {
+      font-family: "Source Sans Pro", sans-serif;
+    }
+  </style>
 
-      .dashboard__chart_orders {
-        --chart-column-color: var(--yellow);
-      }
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/column-chart.css">
+  <link rel="stylesheet" href="css/range-picker.css">
+  <link rel="stylesheet" href="css/tooltip.css">
+  <link rel="stylesheet" href="css/sortable-table.css">
 
-      .dashboard__chart_sales {
-        --chart-column-color: var(--green);
-      }
+  <script src="app.min.js"></script>
+</head>
+<body>
 
-      .dashboard__chart_customers {
-        --chart-column-color: var(--purple);
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="dashboard__charts">
-      <div id="orders" class="column-chart dashboard__chart_orders"></div>
-      <div id="sales" class="column-chart dashboard__chart_sales"></div>
-      <div id="customers" class="column-chart dashboard__chart_customers"></div>
+  <main class="main">
+    <div class="progress-bar">
+      <div class="progress-bar__line"></div>
     </div>
+    <aside class="sidebar">
+      <h2 class="sidebar__title">
+        <a href="/">shop admin</a>
+      </h2>
+      <ul class="sidebar__nav">
+        <li>
+          <a href="/" data-page="dashboard">
+            <i class="icon-dashboard"></i> <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="/products" data-page="products">
+            <i class="icon-products"></i> <span>Products</span>
+          </a>
+        </li>
+        <li>
+          <a href="/categories" data-page="categories">
+            <i class="icon-categories"></i> <span>Categories</span>
+          </a>
+        </li>
+        <li>
+          <a href="/sales" data-page="sales">
+            <i class="icon-sales"></i> <span>Sales</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="sidebar__nav sidebar__nav_bottom">
+        <li>
+          <button type="button" class="sidebar__toggler">
+            <i class="icon-toggle-sidebar"></i> <span>Toggle sidebar</span>
+          </button>
+        </li>
+      </ul>
+    </aside>
+    <section class="content" id="content">
+      <div class="dashboard">
+        <div class="content__top-panel">
+          <h2 class="page-title">Dashboard</h2>
+  
+          <div id="range-picker-root">
+            <!-- range-picker component -->
+          </div>
+        </div>
+  
+        <div id="charts-root" class="dashboard__charts">
+          <!-- column-chart component -->
+        </div>
+  
+        <h3 class="block-title">Best sellers</h3>
+  
+        <div id="sortable-table-root">
+          <!-- sortable-table component -->
+        </div>
+      </div>
+    </section>
+  </main>
 
-    <div style="position: fixed; bottom: 0; right: 0; margin: 0 10px 10px 0;">
-        <button id="btn">Show message under manager's control</button>
-    </div>
+<div style="display: none; position: fixed; bottom: 0; right: 0; margin: 0 10px 10px 0;">
+  <button id="btn">Show message under manager's control</button>
+</div>
 
-    <div class="notification__container"></div>
-  </body>
-</html>
+<div class="notification__container"></div>
+</body>

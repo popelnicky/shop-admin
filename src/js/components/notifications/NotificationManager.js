@@ -1,51 +1,41 @@
-import NotificationMessage from "../NotificationMessage";
+import SuccessNotificationMessage from "./SuccessNotificationMessage";
+import ErrorNotificationMessage from "./ErrorNotificationMessage";
+import WarningNotificationMassege from "./WarningNotificationMessage";
 
 export default class NotificationManager {
-  constructor(container = document.body, stackLength = 3) {
-    this.$root = container;
+  constructor(parent = document.body, stackLength = 3) {
+    this.$parent = parent;
     this.stack = [];
     this.stackLength = stackLength;
   }
 
   show(data) {
-    const { type = "warning" } = data;
+    const { type } = data;
+    const NotificationClass = this.getNotificationClass(type);
+    const message = new NotificationClass(data);
 
-    
+    if (type !== "error") {
+      this.addMessage(message);
+    }
 
-    const notification = new NotificationMessage(data);
-
-    notification.addListener(this.removeFromStack, this);
-    this.addToStack(notification);
-    this.$root.append(notification.$element);
+    message.show(this.$parent);
   }
 
-  addToStack(notification) {
-    if (this.stack.length === this.stackLength) {
+  addMessage(message) {
+    if (this.stack.length >= this.stackLength) {
       const first = this.stack.shift();
 
       first.remove();
     }
         
-    this.stack.push(notification);
+    this.stack.push(message);
   }
 
-  getNotification(type) {
-    switch(type) {
-      case "success": {} break;
-    }
-  }
-
-  removeFromStack(notification) {
-    const old = this.stack;
-
-    this.stack = [];
-
-    for (let item of old) {
-      if (item !== notification) {
-        this.stack.push(item);
-      } else {
-        item.remove();
-      }
+  getNotificationClass(type) {
+    switch (type) {
+    case "success": return SuccessNotificationMessage;
+    case "error": return ErrorNotificationMessage;
+    default: return WarningNotificationMassege;
     }
   }
 }

@@ -1,35 +1,32 @@
-export default class ErrorNotificationMessage {
-  constructor({ message = "Everything is well" } = {}) {
-    this.$component = document.createElement("div");
-    this.$component.innerHTML = `<div class="notification error">
-                                    <div class="inner-wrapper">
-                                    <div class="notification-header">Error: <span class="close">&times;</span></div>
-                                    <div class="notification-body">
-                                        ${message}
-                                    </div>
-                                    </div>
-                                </div>`;
+import BaseNotificationMessage from "./BaseNotificationMessage";
+
+export default class ErrorNotificationMessage extends BaseNotificationMessage {
+  constructor(data, $parent) {
+    super(data, $parent);
+
+    this.initEventListeners();
   }
     
-  get $element() {
-    return this.$component;
+  get template() {
+    return `<div class="notification error">
+              <div class="inner-wrapper">
+                <div class="notification-header">Error: <span class="close">&times;</span></div>
+                <div class="notification-body">
+                    ${this.message}
+                </div>
+              </div>
+            </div>`;
   }
 
-  addEventListener() {
+  initEventListeners() {
     const closeBtn = this.$component.querySelector(".close");
 
     closeBtn.addEventListener("click", () => {
       this.remove();
     });
   }
-    
-  remove() {
-    this.destroy();
-  }
-    
-  destroy() {
-    this.$component.remove();
-    this.$component = null;
-    this.listeners = null;
+
+  show($parent = document.body) {
+    $parent.append(this.$component);
   }
 }
