@@ -21,7 +21,7 @@ export default class ErrorNotificationMessage extends BaseNotificationMessage {
   initEventListeners() {
     const closeBtn = this.$component.querySelector(".close");
 
-    closeBtn.addEventListener("click", () => {
+    closeBtn.addEventListener("onpointerdown", () => {
       this.remove();
     });
   }

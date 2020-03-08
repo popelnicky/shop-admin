@@ -2,7 +2,7 @@ export default class ColumnChart {
   constructor({ header, amount, values }, style = "daf4") {
     this.header = header;
     this.amount = amount;
-    this.data = values;
+    this.data = new Array(...values);
 
     const $element = document.createElement("div");
 
@@ -24,7 +24,7 @@ export default class ColumnChart {
   }
 
   getColumns() {
-    return this.data.map(item => `<div style="--value:${item}" data-tooltip="${item}"></div>`).join("");
+    return this.data.map(item => `<div style="--value:${item}" data-tooltip="<div><small>Mar 3, 2020</small></div><strong>${item}</strong>"></div>`).join("");
   }
 
   destroy() {

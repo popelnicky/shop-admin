@@ -2,7 +2,7 @@ import { successes, warnings, errors } from "../data/common";
 
 export default class Utils {
   static getRandomNumber(from, to) {
-    return parseInt(from + Math.random() * to, 10);
+    return Math.round(from - 0.5 + Math.random() * (to - from + 1));
   }
 
   static getChartData(header, preffix = "") {
@@ -10,7 +10,7 @@ export default class Utils {
     let amount = preffix;
 
     for (let i = 0; i < 25; i++) {
-      values.push(this.getRandomNumber(10, 59));
+      values.push(this.getRandomNumber(0, 50));
     }
 
     amount += values.reduce((result, value) => {
@@ -27,19 +27,19 @@ export default class Utils {
     case 0: {
       return {
         type: "success",
-        message: successes[this.getRandomNumber(0, successes.length)]
+        message: successes[this.getRandomNumber(0, successes.length - 1)]
       };
     }
     case 1: {
       return {
         type: "warning",
-        message: warnings[this.getRandomNumber(0, warnings.length)]
+        message: warnings[this.getRandomNumber(0, warnings.length - 1)]
       };
     }
     case 2: {
       return {
         type: "error",
-        message: errors[this.getRandomNumber(0, errors.length)]
+        message: errors[this.getRandomNumber(0, errors.length - 1)]
       };
     }
     }
