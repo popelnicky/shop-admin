@@ -5,6 +5,21 @@ export default class Utils {
     return parseInt(from + Math.random() * to, 10);
   }
 
+  static getChartData(header, preffix = "") {
+    const values = [];
+    let amount = preffix;
+
+    for (let i = 0; i < 25; i++) {
+      values.push(this.getRandomNumber(10, 59));
+    }
+
+    amount += values.reduce((result, value) => {
+      return result += value;
+    }, 0).toLocaleString("en-US");
+
+    return { header, amount, values };
+  }
+
   static getMessageData() {
     const type = parseInt(Math.random() * 1000, 10) % 3;
 

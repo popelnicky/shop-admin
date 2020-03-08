@@ -1,18 +1,20 @@
 export default class ColumnChart {
-  constructor(data) {
-    this.header = data.header;
-    this.amount = data.amount;
-    this.data = data.values;
+  constructor({ header, amount, values }, style = "daf4") {
+    this.header = header;
+    this.amount = amount;
+    this.data = values;
 
-    const $component = document.createElement("div");
+    const $element = document.createElement("div");
 
-    $component.innerHTML = this.template;
+    $element.classList.add("column-chart");
+    $element.classList.add(style);
+    $element.innerHTML = this.template;
 
-    return $component;
+    return $element;
   }
 
   get template() {
-    return `<div class="column-chart__title">${this.header}</div>
+    return `<div class="column-chart__title">Total ${this.header}</div>
                 <div class="column-chart__container">
                     <div class="column-chart__header">${this.amount}</div>
                     <div class="column-chart__chart">
