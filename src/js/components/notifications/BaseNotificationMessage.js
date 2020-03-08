@@ -5,12 +5,12 @@ export default class BaseNotificationMessage {
   } = {}) {
     this.message = message;
     this.duration = duration;
-    this.$component = document.createElement("div");
-    this.$component.innerHTML = this.template;
+    this.$element = document.createElement("div");
+    this.$element.innerHTML = this.template;
   }
 
   show($parent = document.body) {
-    $parent.append(this.$component);
+    $parent.append(this.$element);
 
     setTimeout(() => {
       this.remove();
@@ -22,10 +22,10 @@ export default class BaseNotificationMessage {
   }
 
   destroy() {
-    if (this.$component) {
-      this.$component.remove();
+    if (this.$element) {
+      this.$element.remove();
     }
     
-    this.$component = null;
+    this.$element = null;
   }
 }
