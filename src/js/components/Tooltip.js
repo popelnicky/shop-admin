@@ -1,10 +1,12 @@
 export default class Tooltip {
   constructor() {
     this.show = event => {
-      const $target = event.target.closest('[data-tooltip]');
+      const $target = event.target.closest("[data-tooltip]");
 
       if ($target) {
         this.$target = $target;
+        this.$target.classList.add("is-hovered");
+
         this.showTooltip($target.dataset.tooltip);
         
         document.addEventListener("pointermove", this.move);
@@ -14,8 +16,11 @@ export default class Tooltip {
     this.hide = event => {
       const $target = event.target.closest('[data-tooltip]');
 
-      if (this.$target === $target) {
+      if ($target && this.$target === $target) {
         this.hideTooltip();
+
+        this.$target.classList.remove("is-hovered");
+        this.$target = null;
       
         document.removeEventListener("pointermove", this.move);
       }
@@ -49,7 +54,6 @@ export default class Tooltip {
   }
 
   hideTooltip() {
-    this.$target = null;
     this.$element.remove();
   }
 
