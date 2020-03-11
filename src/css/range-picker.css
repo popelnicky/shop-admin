@@ -93,6 +93,10 @@
   color: var(--dark-blue);
 }
 
+.rangepicker__month-indicator time {
+  text-transform: capitalize;
+}
+
 .rangepicker__selector-control-left,
 .rangepicker__selector-control-right {
   position: absolute;

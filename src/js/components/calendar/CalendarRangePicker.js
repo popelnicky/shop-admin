@@ -1,23 +1,24 @@
 import MonthRangePicker from "./MonthRangePicker";
 
 export default class CalendarRangePicker {
-  constructor(from, to, size = 2) {
-    this.from = from;
-    this.to = to;
+  constructor(
+    from = new Date(new Date() - (30 * 24 * 60 * 60 * 1000)),
+    to = new Date(),
+    size = 2) {
+    this.selected = { from, to };
+    // this.range = { left: new Date(to).setMonth(to.getMonth() - 1).setDate(1), right: new Date(to).setDate(1) };
     this.size = size;
 
     this.show = event => {
       const $target = event.target.closest(".rangepicker");
 
       if ($target) {
-        this.opened = !this.opened;
-
-        const action = this.opened ? "add" : "remove";
-
-        $target.classList[action]("rangepicker_open");
+        $target.classList.toggle("rangepicker_open");
       }
     };
-    this.opened = false;
+    
+    // TODO: Maybe not needed
+    // this.opened = false;
 
     this.$element = document.createElement("div");
     this.$element.classList.add("container");
@@ -31,8 +32,8 @@ export default class CalendarRangePicker {
   get template() {
     return `<div class="rangepicker">
                 <div class="rangepicker__input" data-elem="input">
-                    <span data-elem="from">${this.from.toLocaleDateString("en-US")}</span> -
-                    <span data-elem="to">${this.to.toLocaleDateString("en-US")}</span>
+                    <span data-elem="from">${this.selected.from.toLocaleDateString("en")}</span> -
+                    <span data-elem="to">${this.selected.to.toLocaleDateString("en")}</span>
                 </div>
                 <div class="rangepicker__selector" data-elem="selector">
                     <div class="rangepicker__selector-arrow"></div>
@@ -53,11 +54,12 @@ export default class CalendarRangePicker {
 
   getMonths() {
     let result = "";
+    const shift = this.size - 1;
 
-    for (let i = 0; i < this.size; i++) {
-      const month = new MonthRangePicker();
+    for (let i = 0, month = this.selected.to.getMonth() - shift; i < this.size; i++, month++) {
+      const item = new MonthRangePicker(new Date(this.selected.to.getFullYear(), month, 1));
 
-      result += month.template;
+      result += item.template;
     }
 
     return result;

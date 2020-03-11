@@ -5,7 +5,8 @@ export default class Tooltip {
 
       if ($target) {
         this.$target = $target;
-        this.$target.classList.add("is-hovered");
+        this.$target.parentElement.classList.toggle("has-hovered");
+        this.$target.classList.toggle("is-hovered");
 
         this.showTooltip($target.dataset.tooltip);
         
@@ -19,7 +20,8 @@ export default class Tooltip {
       if ($target && this.$target === $target) {
         this.hideTooltip();
 
-        this.$target.classList.remove("is-hovered");
+        this.$target.parentElement.classList.toggle("has-hovered");
+        this.$target.classList.toggle("is-hovered");
         this.$target = null;
       
         document.removeEventListener("pointermove", this.move);
