@@ -1,14 +1,17 @@
+import DayRangePicker from "./DayRangePicker";
+
 export default class MonthRangePicker {
-  constructor(date) {
-    this.date = date;
-    this.month = date.getMonth();
-    this.header = this.date.toLocaleString("ru", {month: "long"});
+  constructor(month, selected) {
+    this.month = month;
+    this.selected = selected;
+    this.range = this.getRange();
+    this.header = this.month.toLocaleString("ru", {month: "long"});
   }
 
   get template() {
     return `<div class="rangepicker__calendar">
                 <div class="rangepicker__month-indicator">
-                    <time datetime="${this.header}">${this.header}</time>
+                    <time datetime="${this.month.getMonth()}">${this.header}</time>
                 </div>
                 <div class="rangepicker__day-of-week">
                     <div>Пн</div>
@@ -26,22 +29,30 @@ export default class MonthRangePicker {
   }
 
   getDays() {
-    // TODO: Don't like it. Needs to be refactoring
-    const dayOfWeek = this.date.getDay() === 0 ? 7 : this.date.getDay();
-    let result = `<button type="button" class="rangepicker__cell" data-value="${this.date.toISOString()}" style="--start-from: ${dayOfWeek}">${this.date.getDate()}</button>`;
+    return this.range.reduce((result, day) => {
+      const item = new Date(this.month);
+
+      item.setDate(day);
+
+      return result += new DayRangePicker(item, this.selected).template;
+    }, "");
+  }
+
+  getRange() {
+    let day = 0;
+    let last = 28;
+    const monthIndex = this.month.getMonth();
+    const month = new Date(this.month);
+
+    month.setDate(last);
     
-    this.date.setDate(2);
-
-    let day = this.date.getDate();
-
-    while (this.date.getMonth() === this.month) {
-      result += `<button type="button" class="rangepicker__cell" data-value="${this.date.toISOString()}">${this.date.getDate()}</button>`;
-      
-      day++;
-      
-      this.date.setDate(day);
+    while (month.getMonth() === monthIndex) {
+      last++;
+      month.setDate(last);
     }
 
-    return result;
+    return new Array(last - 1).fill(1).map(() => {
+      return ++day;
+    });
   }
 }

@@ -1,8 +1,8 @@
 import BaseNotificationMessage from "./BaseNotificationMessage";
 
 export default class ErrorNotificationMessage extends BaseNotificationMessage {
-  constructor(data, $parent) {
-    super(data, $parent);
+  constructor(data) {
+    super(data);
 
     this.initEventListeners();
   }
@@ -19,7 +19,7 @@ export default class ErrorNotificationMessage extends BaseNotificationMessage {
   }
 
   initEventListeners() {
-    const closeBtn = this.$component.querySelector(".close");
+    const closeBtn = this.$element.querySelector(".close");
 
     closeBtn.addEventListener("onpointerdown", () => {
       this.remove();
@@ -27,6 +27,6 @@ export default class ErrorNotificationMessage extends BaseNotificationMessage {
   }
 
   show($parent = document.body) {
-    $parent.append(this.$component);
+    $parent.append(this.$element);
   }
 }

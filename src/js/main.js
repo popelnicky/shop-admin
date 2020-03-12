@@ -1,8 +1,10 @@
+import FetchError from "./errors/FetchError";
 import ColumnChart from "./components/ColumnChart";
 import Tooltip from "./components/Tooltip";
-// import NotificationManager from "./components/notifications/NotificationManager";
+import ErrorNotificationMessage from "./components/notifications/ErrorNotificationMessage";
 import Utils from "./services/Utils";
 import CalendarRangePicker from "./components/calendar/CalendarRangePicker";
+import DataProvider from "./services/DataProvider";
 
 // Calendar Range Picker component
 const calendar = document.getElementById("range-picker-root");
@@ -19,15 +21,6 @@ chart.append(new ColumnChart(Utils.getChartData("orders"), "dashboard__chart_ord
 chart.append(new ColumnChart(Utils.getChartData("sales", "$"), "dashboard__chart_sales"));
 chart.append(new ColumnChart(Utils.getChartData("customers"), "dashboard__chart_customers"));
 
-// NotificationManager and NotificationMessage components
-/* const notificationButton = document.getElementById("btn");
-const notificationContainer = document.querySelector(".notification__container");
-const notificationManager = new NotificationManager(notificationContainer, 5);
-  
-notificationButton.addEventListener("pointerdown", () => {
-  notificationManager.show(Utils.getMessageData());
-}); */
-
 new Tooltip();
 
 document.addEventListener("pointerdown", event => {
@@ -37,3 +30,17 @@ document.addEventListener("pointerdown", event => {
     document.body.classList.toggle("is-collapsed-sidebar");
   }
 });
+
+// handle uncaught failed fetch through
+window.addEventListener('unhandledrejection', event => {
+  if (event.reason instanceof FetchError) {
+    const parent = document.body.querySelector(".notification__container");
+
+    new ErrorNotificationMessage({message: event.reason.message}).show(parent);
+  }
+});
+
+DataProvider.getDashboardBestsellers().then(data => {
+  console.log(data);
+});
+

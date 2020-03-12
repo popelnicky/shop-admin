@@ -6,8 +6,8 @@ export default class CalendarRangePicker {
     to = new Date(),
     size = 2) {
     this.selected = { from, to };
-    // this.range = { left: new Date(to).setMonth(to.getMonth() - 1).setDate(1), right: new Date(to).setDate(1) };
     this.size = size;
+    this.range = this.getRange(to);
 
     this.show = event => {
       const $target = event.target.closest(".rangepicker");
@@ -53,16 +53,27 @@ export default class CalendarRangePicker {
   }
 
   getMonths() {
-    let result = "";
-    const shift = this.size - 1;
+    return this.range.reduce((result, month) => {
+      const item = new MonthRangePicker(month, this.selected);
 
-    for (let i = 0, month = this.selected.to.getMonth() - shift; i < this.size; i++, month++) {
-      const item = new MonthRangePicker(new Date(this.selected.to.getFullYear(), month, 1));
+      return result += item.template;
+    }, "");
+  }
 
-      result += item.template;
-    }
+  getRange(latestMonth) {
+    let shiftMonth = this.size - 1;
 
-    return result;
+    return new Array(this.size).fill(1).map(() => {
+      const month = new Date(latestMonth);
+      const monthIndex = month.getMonth() - shiftMonth;
+
+      month.setMonth(monthIndex);
+      month.setDate(1);
+      
+      shiftMonth--;
+
+      return month;
+    });
   }
 
   destroy() {
