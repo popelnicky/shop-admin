@@ -38,6 +38,7 @@ $calendar.append(rangePicker.$element);
 
 rangePicker.dispatchEvent();
 
+// Here will be my SortableTable component
 const $bestsallers = document.getElementById("sortable-table-root");
 const bestsallersTable = new BestsellersTable({
   isSortLocally: true
@@ -49,8 +50,10 @@ DataProvider.getBestsellers().then(data => {
   bestsallersTable.update(data);
 });
 
+// Tooltip component
 new Tooltip();
 
+// Toggle sidebar
 document.addEventListener("pointerdown", event => {
   const $target = event.target.closest(".sidebar__toggler");
   
