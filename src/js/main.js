@@ -2,26 +2,43 @@ import FetchError from "./errors/FetchError";
 import ColumnChart from "./components/ColumnChart";
 import Tooltip from "./components/Tooltip";
 import ErrorNotificationMessage from "./components/notifications/ErrorNotificationMessage";
-import Utils from "./services/Utils";
-import CalendarRangePicker from "./components/calendar/CalendarRangePicker";
 import DataProvider from "./services/DataProvider";
-
-// Calendar Range Picker component
-const calendar = document.getElementById("range-picker-root");
-const to = new Date();
-const from = new Date(to - (30 * 24 * 60 * 60 * 1000));
-
-
-calendar.append(new CalendarRangePicker(from, to));
+import TempRangePicker from "./components/TempRangePicker";
 
 // ColumnChart component
 const chart = document.getElementById("charts-root");
+const ordersChart = new ColumnChart("Orders", "dashboard__chart_orders");
+const salesChart = new ColumnChart("Sales", "dashboard__chart_sales", { style: "currency", currency: "USD" });
+const customersChart = new ColumnChart("Customers", "dashboard__chart_customers");
 
-chart.append(new ColumnChart(Utils.getChartData("orders"), "dashboard__chart_orders"));
-chart.append(new ColumnChart(Utils.getChartData("sales", "$"), "dashboard__chart_sales"));
-chart.append(new ColumnChart(Utils.getChartData("customers"), "dashboard__chart_customers"));
+chart.append(ordersChart.$element);
+chart.append(salesChart.$element);
+chart.append(customersChart.$element);
+
+// Calendar Range Picker component
+document.addEventListener("date-select", event => {
+  DataProvider.getOrders(event.detail).then(data => {
+    ordersChart.update(data);
+  });
+  DataProvider.getSales(event.detail).then(data => {
+    salesChart.update(data);
+  });
+  DataProvider.getCustomers(event.detail).then(data => {
+    customersChart.update(data);
+  });
+});
+
+const $calendar = document.getElementById("range-picker-root");
+const to = new Date();
+const from = new Date(to - (30 * 24 * 60 * 60 * 1000));
+const rangePicker = new TempRangePicker({ from, to });
+
+$calendar.append(rangePicker.$element);
+
+rangePicker.dispatchEvent();
 
 new Tooltip();
+
 
 document.addEventListener("pointerdown", event => {
   const $target = event.target.closest(".sidebar__toggler");
@@ -39,8 +56,3 @@ window.addEventListener('unhandledrejection', event => {
     new ErrorNotificationMessage({message: event.reason.message}).show(parent);
   }
 });
-
-DataProvider.getDashboardBestsellers().then(data => {
-  console.log(data);
-});
-

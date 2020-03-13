@@ -5,22 +5,60 @@ export default class DataProvider {
   static ORDERS_API = "dashboard/orders";
   static SALES_API = "dashboard/sales";
   static CUSTOMERS_API = "dashboard/customers";
-  static BESTSELLERS_API = "dashboard/bestsellerss";
+  static BESTSELLERS_API = "dashboard/bestsellers";
 
-  static getDashboardOrders() {
-    return this.get(`${this.BACKEND_URL}${this.ORDERS_API}`);
+  static async getOrders({from , to} = {}) {
+    const data = await this.get(`${this.BACKEND_URL}${this.ORDERS_API}`);
+    
+    return this.getConvertedDataForCharts(data, from, to);
   }
 
-  static getDashboardSales() {
-    return this.get(`${this.BACKEND_URL}${this.SALES_API}`);
+  static async getSales({from , to} = {}) {
+    const data = await this.get(`${this.BACKEND_URL}${this.SALES_API}`);
+
+    return this.getConvertedDataForCharts(data, from, to);
   }
 
-  static getDashboardCustomers() {
-    return this.get(`${this.BACKEND_URL}${this.CUSTOMERS_API}`);
+  static async getCustomers({from , to} = {}) {
+    const data = await this.get(`${this.BACKEND_URL}${this.CUSTOMERS_API}`);
+
+    return this.getConvertedDataForCharts(data, from, to);
   }
 
-  static getDashboardBestsellers() {
+  static getBestsellers() {
     return this.get(`${this.BACKEND_URL}${this.BESTSELLERS_API}`);
+  }
+
+  static getConvertedDataForCharts(data, from, to) {
+    const start = new Date(from);
+    const end = new Date(to);
+    const target = Object.entries(data).filter(item => {
+      const current = new Date(item[0]);
+
+      return current >= start && current <= end;
+    });
+    const max = new Array(...target).sort((left, right) => {
+      if (left[1] > right[1]) return 1;
+      if (left[1] == right[1]) return 0;
+      if (left[1] < right[1]) return -1;
+    })[target.length - 1][1];
+    const values = target.reduce((result, item) => {
+      const current = new Date(item[0]);
+      const date = current.toLocaleString("en", { year: "numeric", month: "short", day: "numeric" });
+      const value = item[1];
+      const rate = parseInt((50 * value) / max, 10);
+      
+      result.push({ rate, date, value })
+
+      return result;
+    }, []);
+    const amount = values.reduce((result, item) => {
+      result += item.value;
+
+      return result;
+    }, 0);
+
+    return { amount, values };
   }
 
   // same as fetch, but throws FetchError in case of errors

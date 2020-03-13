@@ -1,16 +1,15 @@
 export default class ColumnChart {
-  constructor({ header, amount, values }, style = "daf4") {
+  constructor(header = "", style = "untitled-style", formatting = "") {
     this.header = header;
-    this.amount = amount;
-    this.data = new Array(...values);
+    this.formatting = formatting;
+    this.amount = 0;
+    this.data = [];
 
-    const $element = document.createElement("div");
+    this.$element = document.createElement("div");
 
-    $element.classList.add("column-chart");
-    $element.classList.add(style);
-    $element.innerHTML = this.template;
-
-    return $element;
+    this.$element.classList.add("column-chart");
+    this.$element.classList.add(style);
+    this.$element.innerHTML = this.template;
   }
 
   get template() {
@@ -24,7 +23,14 @@ export default class ColumnChart {
   }
 
   getColumns() {
-    return this.data.map(item => `<div style="--value:${item}" data-tooltip="<div><small>Mar 3, 2020</small></div><strong>${item}</strong>"></div>`).join("");
+    return this.data.map(item => `<div style="--value:${item.rate}" data-tooltip="<div><small>${item.date}</small></div><strong>${item.value}</strong>"></div>`).join("");
+  }
+
+  update({amount, values} = {}) {
+    this.amount = amount;
+    this.data = new Array(...values);
+
+    this.$element.innerHTML = this.template;
   }
 
   destroy() {
