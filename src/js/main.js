@@ -4,16 +4,17 @@ import Tooltip from "./components/Tooltip";
 import ErrorNotificationMessage from "./components/notifications/ErrorNotificationMessage";
 import DataProvider from "./services/DataProvider";
 import TempRangePicker from "./components/TempRangePicker";
+import BestsellersTable from "./components/tables/BestsellersTable";
 
 // ColumnChart component
-const chart = document.getElementById("charts-root");
+const $chart = document.getElementById("charts-root");
 const ordersChart = new ColumnChart("Orders", "dashboard__chart_orders");
-const salesChart = new ColumnChart("Sales", "dashboard__chart_sales", { style: "currency", currency: "USD" });
+const salesChart = new ColumnChart("Sales", "dashboard__chart_sales");
 const customersChart = new ColumnChart("Customers", "dashboard__chart_customers");
 
-chart.append(ordersChart.$element);
-chart.append(salesChart.$element);
-chart.append(customersChart.$element);
+$chart.append(ordersChart.$element);
+$chart.append(salesChart.$element);
+$chart.append(customersChart.$element);
 
 // Calendar Range Picker component
 document.addEventListener("date-select", event => {
@@ -37,8 +38,18 @@ $calendar.append(rangePicker.$element);
 
 rangePicker.dispatchEvent();
 
-new Tooltip();
+const $bestsallers = document.getElementById("sortable-table-root");
+const bestsallersTable = new BestsellersTable({
+  isSortLocally: true
+});
 
+$bestsallers.append(bestsallersTable.$element);
+
+DataProvider.getBestsellers().then(data => {
+  bestsallersTable.update(data);
+});
+
+new Tooltip();
 
 document.addEventListener("pointerdown", event => {
   const $target = event.target.closest(".sidebar__toggler");

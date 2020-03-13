@@ -1,7 +1,6 @@
 export default class ColumnChart {
-  constructor(header = "", style = "untitled-style", formatting = "") {
+  constructor(header = "", style = "untitled-style") {
     this.header = header;
-    this.formatting = formatting;
     this.amount = 0;
     this.data = [];
 
